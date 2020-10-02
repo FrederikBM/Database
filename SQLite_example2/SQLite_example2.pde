@@ -1,3 +1,7 @@
+//state 0: login skærm
+//state 1: chat skærm
+//vi bruger states til at registrere, hvorvidt brugeren er på login skærmen eller chat skærmen. hvis man er på login skærmen skal chat skærmens funktioner (eks. textwheee) ikke kaldes, og vice versa. når man indtaster et brugernavn og det tilpassende password rykker man fra state 0 til state 1; alt fra state 0 rydes og vi kommer ind på chat skærmen.
+//
 import de.bezier.data.sql.*;
 import g4p_controls.*;
 
@@ -7,15 +11,17 @@ GPassword pwd;
 GTabManager tt;
 GLabel lblTxf;
 GLabel lblPwd;
+Textwheee textwheee = new Textwheee();
 
 void setup(){
-  size( 220, 150 );
+  size(220, 300);
+  background(200, 128, 200);
 
-  db = new SQLite( this, "test.db" );  // open database file
+  db = new SQLite(this, "test.db");  // open database file
 
   if (db.connect()){
     
-    db.query( "SELECT * FROM Users");
+    db.query("SELECT * FROM Users");
     
     while (db.next()){
       
@@ -51,7 +57,10 @@ void setup(){
 }
 
 void draw(){
-  background(200, 128, 200);
+  
   // Draw tab order
 }
-
+void keyPressed(){
+  textwheee.addText(key);
+  println(textwheee.teksten);
+}
